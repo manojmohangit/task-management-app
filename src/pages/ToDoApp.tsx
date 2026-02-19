@@ -1,10 +1,10 @@
 import ListTask from "../components/ListTask";
+import SearchBar from "../components/SearchBar";
 import { useNavigate } from "react-router";
-import { useTaskContext } from "../TaskStorageContext";
 
 function ToDoApp() {
     const navigate = useNavigate();
-    const { tasks } = useTaskContext();
+    
     return (
         <div className="container">
             <header className="uppercase">To-Do App</header>
@@ -23,7 +23,8 @@ function ToDoApp() {
                     padding: "0px"
                 }}
             >+</button>
-            <ListTask tasks={tasks} />
+            <SearchBar />
+            <ListTask />
         </div>
     );
 }

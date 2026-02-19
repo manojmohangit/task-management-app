@@ -2,9 +2,11 @@ import type { Task, TaskStatus } from "../../types";
 import TaskItem from "../TaskItem";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../Accordion";
 import './index.scss';
+import { useTaskContext } from "../../TaskStorageContext";
 
-function ListTask({ tasks }: { tasks: Array<Task> }) {
-    const taskStatuses = {'in-progress': 'In Progress', 'pending': 'Pending', 'completed': 'Completed'} ;
+function ListTask() {
+    const taskStatuses = {'in-progress': 'In Progress', 'pending': 'Pending', 'completed': 'Completed'} as Record<TaskStatus, string>;
+    const { filteredTasks } = useTaskContext();
         
     let tasksByStatus = Object.keys(taskStatuses).reduce((resultTask, status) => {
         if (!resultTask[status as TaskStatus]) {
@@ -13,7 +15,7 @@ function ListTask({ tasks }: { tasks: Array<Task> }) {
         return resultTask;
     }, {} as Partial<Record<TaskStatus, Task[]>>); 
     
-    tasksByStatus = tasks.reduce((groupedTask, task) => {
+    tasksByStatus = filteredTasks.reduce((groupedTask, task) => {
         const { status } = task;
         
         if (!groupedTask[status]) {
@@ -29,7 +31,7 @@ function ListTask({ tasks }: { tasks: Array<Task> }) {
         <Accordion>
             {Object.entries(tasksByStatus).map(([status, tasks]) => (
                 <AccordionItem key={status} id={status}>
-                    <AccordionTrigger id={status}>{`${status} (${tasks.length})`}</AccordionTrigger>
+                    <AccordionTrigger id={status}><div>{`${taskStatuses[status]}`} (<span className='task-count'>{`${tasks.length}`}</span>)</div></AccordionTrigger>
                     <AccordionContent id={status}>
                         <ul className="task-list">
                             {tasks.map(task => (

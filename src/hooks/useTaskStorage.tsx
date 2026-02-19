@@ -11,7 +11,7 @@ export default function useTaskStorage() {
             localStorage.setItem(testKey, testKey);
             localStorage.removeItem(testKey);
             return true;
-        } catch (e) {
+        } catch (error) {
             return false;
         }
     };

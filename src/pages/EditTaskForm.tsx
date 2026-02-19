@@ -15,11 +15,12 @@ function EditTaskForm() {
         if(!id) {
             navigate('/', {replace: true});
         } else {
-            task == null && tasks.forEach(t => {
-                if(id && t.id === parseInt(id)) {
-                    setTask(t);
-                }
-            });
+            if(task == null)
+                tasks.forEach(t => {
+                    if(id && t.id === parseInt(id)) {
+                        setTask(t);
+                    }
+                });
         }
     }, []);
 
