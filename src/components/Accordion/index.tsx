@@ -55,9 +55,7 @@ export const AccordionContent = ({ id, children }: { id: string; children: React
         isOpen ? 'show' : ''
       }`}
     >
-      <div className="p-4 bg-slate-50 text-slate-600 border-t border-slate-200">
-        {children}
-      </div>
+      {children}
     </div>
   );
 };

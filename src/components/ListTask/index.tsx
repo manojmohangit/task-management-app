@@ -33,8 +33,9 @@ function ListTask({ tasks }: { tasks: Array<Task> }) {
                     <AccordionContent id={status}>
                         <ul className="task-list">
                             {tasks.map(task => (
-                                <TaskItem task={task} />
+                                <TaskItem key={`task-${task.id}`} task={task} />
                             ))}
+                            {tasks.length === 0 && <li style={{ textAlign: "center"}}>Oops! No task exist in this category</li>}
                         </ul>
                     </AccordionContent>
                 </AccordionItem>

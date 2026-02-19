@@ -1,8 +1,10 @@
 import type { Task } from "../../types/index";
 import { NavLink } from "react-router";
 import './index.scss';
+import { useTaskContext } from "../../TaskStorageContext";
 
 function TaskItem({ task }:{ task : Task }) {
+    const { deleteTask } = useTaskContext();
     return (
         <li className={`task-card ${task.status}`}>
             <i className="bi bi-clock"></i>
@@ -18,7 +20,7 @@ function TaskItem({ task }:{ task : Task }) {
                 <p>{task.description}</p>
                 <div className="task-actions">
                     <NavLink to={`/edit/${task.id}`}><i className="bi bi-pencil"></i></NavLink>
-                    <button className="delete-btn"><i className="bi bi-trash text-red"></i></button>
+                    <button className="delete-btn" onClick={() => { deleteTask(task.id); }}><i className="bi bi-trash text-red"></i></button>
                 </div>
             </div>
         </li>

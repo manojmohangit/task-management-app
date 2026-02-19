@@ -1,7 +1,7 @@
 import React, { useEffect} from "react";
 import { NavLink, useNavigate, useParams } from "react-router";
 import { useTaskContext } from "../TaskStorageContext";
-import type { Task } from "../types";
+import type { Task, TaskStatus } from "../types";
 
 function EditTaskForm() {
     const navigate = useNavigate();
@@ -11,12 +11,11 @@ function EditTaskForm() {
     
 
     useEffect(() => {
-        console.log(id);
-        if(id) {
-
+        
+        if(!id) {
             navigate('/', {replace: true});
         } else {
-            tasks.forEach(t => {
+            task == null && tasks.forEach(t => {
                 if(id && t.id === parseInt(id)) {
                     setTask(t);
                 }
@@ -27,19 +26,23 @@ function EditTaskForm() {
     function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const updatedTask = {
-            id: id,
-            title: formData.get("title") as string,
-            description: formData.get("description") as string,
-        };
+        if(task && task.id) {
+            const updatedTask = {
+                id: task?.id || 0,
+                title: formData.get("title") as string,
+                description: formData.get("description") as string,
+                status: formData.get("status") as TaskStatus,
+            };
+            updateTask(updatedTask);
+            navigate("/", { replace: true });
+        }
         
-        navigate("/", { replace: true });
     }
 
     return task ? (
         <div className="container">
             <header>
-                <NavLink to="/"><i className="mr-2 bi bi-arrow-left"></i></NavLink>
+                <NavLink to="/"><i className="mr-2 bi bi-arrow-left text-white"></i></NavLink>
                 Edit Task
             </header>
             <form action="post" onSubmit={formSubmitHandler}>
@@ -48,6 +51,14 @@ function EditTaskForm() {
                 </div>
                 <div className="input-group">
                     <textarea placeholder="Enter the description" name="description" className="form-control mb-4" rows={5} required defaultValue={task.description}></textarea>
+                </div>
+
+                <div className="input-group">
+                    <select name="status" defaultValue={task.status} className="form-control mb-4">
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
                 </div>
                 <div className="input-group">
                     <NavLink to="/" className="btn btn-outline-primary">Cancel</NavLink>
