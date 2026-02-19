@@ -6,9 +6,10 @@ import { formatDate } from "../../utils/formatDate";
 
 function TaskItem({ task }:{ task : Task }) {
     const { deleteTask } = useTaskContext();
+
     return (
         <li className={`task-card ${task.status}`}>
-            <i className="bi bi-clock"></i>
+            <div className="card-icon">{task.title.charAt(0)}</div>
             <div className='card-content'>
                 <div className="card-header">
                     <span className="text-primary title">{task.title}</span>
