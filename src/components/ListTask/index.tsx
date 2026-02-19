@@ -4,11 +4,11 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "..
 import './index.scss';
 
 function ListTask({ tasks }: { tasks: Array<Task> }) {
-    const taskStatuses = ['pending', 'in-progress', 'completed'] as const;
-    
-    let tasksByStatus = taskStatuses.reduce((resultTask, status) => {
-        if (!resultTask[status]) {
-            resultTask[status] = [];
+    const taskStatuses = {'in-progress': 'In Progress', 'pending': 'Pending', 'completed': 'Completed'} ;
+        
+    let tasksByStatus = Object.keys(taskStatuses).reduce((resultTask, status) => {
+        if (!resultTask[status as TaskStatus]) {
+            resultTask[status as TaskStatus] = [];
         }
         return resultTask;
     }, {} as Partial<Record<TaskStatus, Task[]>>); 

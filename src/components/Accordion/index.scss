@@ -5,8 +5,9 @@
 .accordion-header {
     display: flex;
     padding: 8px;
-    border-radius: 8px;
-    background: #F7F7F7;
+    border-radius: 3px;
+    font-size: 12px;
+    background: #F3F6F9;
     justify-content: space-between;
     cursor: pointer;
 }

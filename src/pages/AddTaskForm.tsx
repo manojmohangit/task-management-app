@@ -31,9 +31,9 @@ function AddTaskForm() {
                     <div className="input-group">
                         <textarea placeholder="Enter the description" name="description" className="form-control mb-4" rows={5} required></textarea>
                     </div>
-                    <div className="input-group">
+                    <div className="input-group" style={{ marginTop: '2rem'}}>
                         <NavLink to="/" className="btn btn-outline-primary">Cancel</NavLink>
-                        <button type="submit" className="btn btn-primary">Add Task</button>
+                        <button type="submit" className="btn btn-primary">ADD</button>
                     </div>
                 </form>
             </div>

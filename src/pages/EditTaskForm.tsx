@@ -45,26 +45,28 @@ function EditTaskForm() {
                 <NavLink to="/"><i className="mr-2 bi bi-arrow-left text-white"></i></NavLink>
                 Edit Task
             </header>
-            <form action="post" onSubmit={formSubmitHandler}>
-                <div className="input-group">
-                    <input type="text" placeholder="Enter the title" name="title" className="" required defaultValue={task.title}/>
-                </div>
-                <div className="input-group">
-                    <textarea placeholder="Enter the description" name="description" className="form-control mb-4" rows={5} required defaultValue={task.description}></textarea>
-                </div>
+            <div className="content">
+                <form action="post" onSubmit={formSubmitHandler}>
+                    <div className="input-group">
+                        <input type="text" placeholder="Enter the title" name="title" className="" required defaultValue={task.title}/>
+                    </div>
+                    <div className="input-group">
+                        <textarea placeholder="Enter the description" name="description" className="form-control mb-4" rows={5} required defaultValue={task.description}></textarea>
+                    </div>
 
-                <div className="input-group">
-                    <select name="status" defaultValue={task.status} className="form-control mb-4">
-                        <option value="pending">Pending</option>
-                        <option value="in-progress">In Progress</option>
-                        <option value="completed">Completed</option>
-                    </select>
-                </div>
-                <div className="input-group">
-                    <NavLink to="/" className="btn btn-outline-primary">Cancel</NavLink>
-                    <button type="submit" className="btn btn-primary">Save Changes</button>
-                </div>
-            </form>
+                    <div className="input-group">
+                        <select name="status" defaultValue={task.status} className="form-control mb-4">
+                            <option value="pending"><i className="bi bi-circle-fill pending mr-1"></i>Pending</option>
+                            <option value="in-progress"><i className="bi bi-circle-fill in-progress mr-1"></i>In Progress</option>
+                            <option value="completed"><i className="bi bi-circle-fill completed mr-1"></i>Completed</option>
+                        </select>
+                    </div>
+                    <div className="input-group" style={{ marginTop: '2rem'}}>
+                        <NavLink to="/" className="btn btn-outline-primary">Cancel</NavLink>
+                        <button type="submit" className="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
         </div>
         
     ) : (<>NO Task</>);
