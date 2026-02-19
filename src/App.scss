@@ -10,9 +10,19 @@ body {
     margin: 0px;
     padding: 0px;
     font-family: 'Jost', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
+.container {
+    position: relative;
+    width: 412px;
+    height: 650px;
+    padding: 0px;
+    border: 4px solid #000;
+    border-radius: 8px;
+}
 
 header {
     background: $primary-color;
@@ -21,6 +31,30 @@ header {
     text-transform: uppercase;
 }
 
+.btn {
+    padding: 8px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px;
+}
+
+input, textarea {
+    flex: 1;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-right: 8px;
+}
+
+.p-2 {
+    padding: 1rem;
+}
 
 .btn-primary {
     background: $primary-color;
@@ -32,6 +66,12 @@ header {
     &:hover {
         background: color.adjust($primary-color, $lightness: -5%);
     }
+}
+
+.btn-outline-primary {
+    border: 1px solid $primary-color;
+    color: $primary-color;
+
 }
 .text-primary {
     color: $primary-color;
@@ -47,8 +87,12 @@ header {
     margin-right: 1rem;
 }
 
+.mr-1 {
+    margin-right: 0.5rem;
+}
+
 #add-task-btn {
-    position: fixed;
+    position: absolute;
     font-size: 24px;
     bottom: 20px;
     right: 20px;
@@ -57,58 +101,5 @@ header {
     border-radius: 50%;
 }
 
-.task-card {
-    display: flex;
-    vertical-align: top;
-    align-items: flex-start;
-    border-bottom: 1px solid #ccc;
-    padding: 8px;
-    cursor: pointer;
 
-    &:hover {
-        background-color: #F7F7F7;
-        border: 1px solid $primary-color;
-
-        .card-content .task-actions {
-
-            display: block;
-        }
-    }
-    
-    .card-content {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-
-        .card-header {
-            display: flex;
-            
-            justify-content: space-between;
-            vertical-align: top;
-            align-items: flex-start;
-            gap: 1rem;
-
-            .title {
-                font-weight: 600;
-                font-size: 14px;
-            }
-        }
-
-        p {
-            font-weight: 400;
-            font-size: 12px;
-        }
-
-        .task-actions {
-            align-self: flex-end;
-            display: none;
-
-            button {
-                border: 0px;
-                background: transparent;
-                cursor: pointer;
-            }
-        }
-    }
-}
 

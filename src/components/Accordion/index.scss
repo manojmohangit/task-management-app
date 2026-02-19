@@ -1,0 +1,34 @@
+.accordion-container {
+    padding: 8px;
+}
+
+.accordion-header {
+    display: flex;
+    padding: 8px;
+    border-radius: 8px;
+    background: #F7F7F7;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.accordian-trigger-btn {
+    transition: transform 0.2s ease;
+}
+
+.show .accordian-trigger-btn {
+    transform: rotate(180deg);
+}
+
+.accordian-item {
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.accordion-content {
+    height: 0;
+    transition: height 0.5s ease, opacity 0.3s ease;
+
+    &.show {
+        height: auto;
+    }
+}

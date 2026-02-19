@@ -1,0 +1,94 @@
+$primary-color: #034EA2;
+
+.task-card {
+    display: flex;
+    vertical-align: top;
+    align-items: flex-start;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+    cursor: pointer;
+
+    .bi-clock {
+        color: $primary-color;
+        font-size: 24px;
+    }
+
+    &:hover {
+        background-color: #F7F7F7;
+        border-color: transparent;
+        // border: 1px solid $primary-color;
+
+        .card-content .task-actions {
+            opacity: 1;
+        }
+    }
+    
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        .card-header {
+            display: flex;
+            
+            justify-content: space-between;
+            vertical-align: top;
+            align-items: flex-start;
+            gap: 1rem;
+
+            .title {
+                font-weight: 600;
+                font-size: 14px;
+            }
+        }
+
+        p {
+            font-weight: 400;
+            font-size: 12px;
+        }
+
+        .task-actions {
+            align-self: flex-end;
+            opacity: 0;
+
+            button {
+                border: 0px;
+                background: transparent;
+                cursor: pointer;
+            }
+
+            .text-red {
+                color: red;
+            }
+        }
+    }
+}
+
+.status .bi-circle-fill {
+    font-size: 8px;
+    vertical-align: middle;
+    margin-right: 0.25rem;
+}
+
+.pending .status .bi-circle-fill {
+    color: yellow;
+}
+
+.completed .status .bi-circle-fill {
+    color: green;
+}
+
+.in-progress .status .bi-circle-fill {
+    color: orange;
+}
+
+.completed .bi-clock:before {
+    content: "\F270";
+}
+
+.in-progress .bi-clock:before {
+    content: "\F41F";
+}

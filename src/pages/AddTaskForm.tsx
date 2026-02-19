@@ -1,12 +1,43 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { useTaskContext }  from "../TaskStorageContext";
 
 function AddTaskForm() {
-    
+    const { addTask } = useTaskContext();
+    const navigate = useNavigate();
+
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const title = formData.get("title") as string;
+        const description = formData.get("description") as string;
+        addTask({
+            id: Date.now(),
+            title,
+            description
+        });
+        navigate('/');
+    }
+
     return (
-        <>
+        <div className="container">
             <header>
-                <NavLink to="/"><i className="mr-2 bi bi-arrow-left pointer text-white"></i></NavLink> Add Task</header>
-        </>
+                <NavLink to="/"><i className="mr-2 bi bi-arrow-left pointer text-white"></i></NavLink> Add Task
+            </header>
+            <div className="content">
+                <form action="post" onSubmit={handleSubmit}>
+                    <div className="input-group">
+                        <input type="text" placeholder="Enter the title" name="title" className="" required/>
+                    </div>
+                    <div className="input-group">
+                        <textarea placeholder="Enter the description" name="description" className="form-control mb-4" rows={5} required></textarea>
+                    </div>
+                    <div className="input-group">
+                        <NavLink to="/" className="btn btn-outline-primary">Cancel</NavLink>
+                        <button type="submit" className="btn btn-primary">Add Task</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     )
 }
 
