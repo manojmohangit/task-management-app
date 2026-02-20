@@ -140,3 +140,20 @@ input:focus, textarea:focus, select:focus {
 .bi-circle-fill.pending {
     color: #D0D0D0;
 }
+
+@keyframes fadeOut {
+    from {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+        max-height: initial;
+    }
+
+    75% {
+        max-height: initial;
+    }
+    to {
+        transform: translateX(120%) scale(0); /* Fly off to the right */
+        opacity: 0;
+        max-height: 0;
+    }
+}

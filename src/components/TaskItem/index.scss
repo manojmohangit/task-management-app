@@ -96,7 +96,15 @@ $primary-color: #034EA2;
 
         
     }
+
+    &.deleting {
+        animation: fadeOut .3s forwards;
+    }
+
+   
 }
+
+
 
 .status .bi-circle-fill {
     font-size: 8px;
