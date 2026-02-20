@@ -1,0 +1,15 @@
+Task Management Tool:
+
+Simple Task Management Tool where user can manage their task. This tool saves task in localStorage which preserve the task even on refresh of the page.
+
+Please follow steps to run the project:
+
+1. Open Terminal/Command Prompt/Shell in the current project
+
+2. Install all the packages by running `npm install` command
+
+3. Run the project in development mode using "npm run dev" and open the url mentioned in the browser
+
+4. Build the project for production using "npm run build"
+
+5. Preview the build using "npm run preview" and open the url mentioned in the browser 

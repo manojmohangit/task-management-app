@@ -18,9 +18,6 @@ function ToDoApp() {
             toastProcessed.current = true;
             window.history.replaceState({}, '', location.pathname);
         }
-        return () => {
-            window.history.replaceState({}, '', location.pathname);
-        }
     }, [location.state?.toastMessage])
 
     useEffect(() => {

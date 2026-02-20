@@ -3,15 +3,12 @@
     max-height: 0;
     visibility: hidden;
     list-style: none;    
-    transform: translateY(-10px) scale(0.98);
     overflow: hidden;
     transition: 
         opacity 0.2s ease-out,
         transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
         max-height 0.3s ease-in-out,
         visibility 0.3s;
-
-    
     position: absolute;
     top: 100%;
     left: 0px;
@@ -32,7 +29,7 @@
     width: 100%;
 }
 
-.select-btn {
+.select-btn.btn {
     width: 100%;
     text-align: left;
     background: #FFF;
@@ -40,6 +37,8 @@
     padding: 0.5rem 1rem;
     border-radius: 3px;
     border: 1px solid #DDDDDD;
+    outline-color: var(--primary-color, #034EA2);
+    outline-width: 1px;
 }
 
 .select-btn .bi:last-child{
