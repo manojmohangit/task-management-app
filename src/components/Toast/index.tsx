@@ -9,7 +9,7 @@ interface ToastProps {
     onClose?: () => void;
 }
 
-export const Toast = ({message, duration = 200000, type="success", onClose = (): void => {}}: ToastProps) => {
+export const Toast = ({message, duration = 2000, type="success", onClose = (): void => {}}: ToastProps) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             onClose?.();
