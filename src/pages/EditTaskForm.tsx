@@ -1,7 +1,8 @@
-import React, { useEffect} from "react";
+import { useEffect, useState} from "react";
 import { NavLink, useNavigate, useParams } from "react-router";
 import { useTaskContext } from "../TaskStorageContext";
 import type { Task, TaskStatus } from "../types";
+import type { SubmitEvent } from "react";
 import { Select } from "../components/Select";
 import { Option } from "../components/Select/Option";
 import { TASK_STATUS_OPTIONS } from '../constants/tasks';
@@ -10,7 +11,7 @@ function EditTaskForm() {
     const navigate = useNavigate();
     const { id } = useParams();
     const { tasks, updateTask } = useTaskContext();
-    const [task, setTask] = React.useState<Task | null>(null);
+    const [task, setTask] = useState<Task | null>(null);
     
 
     useEffect(() => {
@@ -27,7 +28,7 @@ function EditTaskForm() {
         }
     }, []);
 
-    function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
+    function formSubmitHandler(e: SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         if(task && task.id) {

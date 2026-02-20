@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { Children, useState, useRef, useEffect, isValidElement, cloneElement } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 import type { OptionProps } from './Option';
 import './index.css';
@@ -10,12 +10,12 @@ interface SelectProps {
   defaultValue?: string | number;
 }
 
-export const Select: React.FC<SelectProps> = ({ 
+export const Select = ({ 
   children, 
   name, 
   placeholder = "Select an option", 
   defaultValue = "" 
-}) => {
+}:SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string | number>(defaultValue);
   const [selectedLabel, setSelectedLabel] = useState<ReactNode>(placeholder);
@@ -23,8 +23,8 @@ export const Select: React.FC<SelectProps> = ({
 
   // Sync Label on Mount
   useEffect(() => {
-    React.Children.forEach(children, (child) => {
-      if (React.isValidElement(child) && child.props.value === defaultValue) {
+    Children.forEach(children, (child) => {
+      if (isValidElement(child) && child.props.value === defaultValue) {
         setSelectedLabel(child.props.label);
       }
     });
@@ -50,9 +50,9 @@ export const Select: React.FC<SelectProps> = ({
       </button>
 
       <ul className={`select-dropdown ${isOpen ? 'is-open' : ''}`}>
-        {React.Children.map(children, (child) => {
-          if (React.isValidElement<OptionProps>(child)) {
-            return React.cloneElement(child as ReactElement<OptionProps>, { 
+        {Children.map(children, (child) => {
+          if (isValidElement<OptionProps>(child)) {
+            return cloneElement(child as ReactElement<OptionProps>, { 
               onSelect: handleSelect,
               isSelected: child.props.value === selectedValue 
             });

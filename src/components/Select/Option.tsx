@@ -1,13 +1,13 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 
 export interface OptionProps {
   value: string | number;
-  label: React.ReactNode;
-  onSelect?: (value: string | number, label: React.ReactNode) => void;
+  label: ReactNode;
+  onSelect?: (value: string | number, label: ReactNode) => void;
   isSelected?: boolean;
 }
 
-export const Option: React.FC<OptionProps> = ({ value, label, onSelect, isSelected }) => {
+export const Option = ({ value, label, onSelect, isSelected }: OptionProps) => {
   return (
     <li 
       className={`select-option ${isSelected ? 'is-selected' : ''}`}

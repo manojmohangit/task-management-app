@@ -1,11 +1,12 @@
 import { NavLink, useNavigate } from "react-router";
+import type { SubmitEvent } from "react";
 import { useTaskContext }  from "../TaskStorageContext";
 
 function AddTaskForm() {
     const { addTask } = useTaskContext();
     const navigate = useNavigate();
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const title = formData.get("title") as string;
