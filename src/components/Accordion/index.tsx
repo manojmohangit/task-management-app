@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useCallback, useRef, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { AccordionContext, useAccordion } from './context';
 import './index.scss'
@@ -9,14 +9,16 @@ interface AccordionProps {
 }
 
 export const Accordion = ({ children }: AccordionProps) => {
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [activeIds, setActiveIds] = useState<string[] | null>(null);
 
-  const toggle = (id: string) => {
-    setActiveId((prev) => (prev === id ? null : id));
-  };
+  const toggle = useCallback((id: string) => {
+    setActiveIds((prevActiveIds) =>
+      prevActiveIds?.includes(id) ? prevActiveIds.filter((i) => i !== id) : [...(prevActiveIds || []), id]
+    );
+  }, []);
 
   return (
-    <AccordionContext.Provider value={{ activeId, toggle }}>
+    <AccordionContext.Provider value={{ activeIds, toggle }}>
       <div className="accordion-container">
         {children}
       </div>
@@ -33,13 +35,13 @@ export const AccordionItem = ({ children }: AccordionItemProps) => {
   return <div className="accordian-item">{children}</div>;
 };
 
-export const AccordionTrigger = ({ id, children }: { id: string; children: ReactNode }) => {
-  const { activeId, toggle } = useAccordion();
-  const isOpen = activeId === id;
+export const AccordionTrigger = ({ id, isExpanded, children }: { id: string; isExpanded?: boolean; children: ReactNode }) => {
+  const { activeIds, toggle } = useAccordion();
+  const isOpen = isExpanded || activeIds?.includes(id);
 
   return (
     <div
-      onClick={() => toggle(id)}
+      onClick={() => { toggle(id);}}
       aria-expanded={isOpen}
       className={`accordion-header ${isOpen ? 'show' : ''}`}
     >
@@ -49,11 +51,11 @@ export const AccordionTrigger = ({ id, children }: { id: string; children: React
   );
 };
 
-export const AccordionContent = ({ id, children }: { id: string; children: ReactNode }) => {
-  const { activeId } = useAccordion();
-  const isOpen = activeId === id;
+export const AccordionContent = ({ id, children }: { id: string; isExpanded?: boolean; children: ReactNode }) => {
+  const { activeIds } = useAccordion();
   const contentRef = useRef<HTMLDivElement>(null);
   const [maxHeight, setMaxHeight] = useState<string>("0px");
+  const isOpen = activeIds?.includes(id);
 
   useLayoutEffect(() => {
     if (isOpen && contentRef.current) {
@@ -66,15 +68,15 @@ export const AccordionContent = ({ id, children }: { id: string; children: React
   return (
     <div
       role="region"
-      ref={contentRef}
+      
       className={`accordion-content ${
-        isOpen ? 'show' : ''
+        isOpen ? 'open' : ''
       }`}
       style={{
         maxHeight: isOpen ? maxHeight : "0px",
       }}
     >
-      <div>
+      <div ref={contentRef}>
         {children}
       </div>
     </div>

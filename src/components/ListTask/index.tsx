@@ -6,7 +6,7 @@ import { useTaskContext } from "../../TaskStorageContext";
 import { TASK_STATUS_MAP } from "../../constants/tasks";
 
 function ListTask() {
-    const { filteredTasks } = useTaskContext();
+    const { filteredTasks, searchQuery } = useTaskContext();
         
     let tasksByStatus = Object.keys(TASK_STATUS_MAP).reduce((resultTask, status) => {
         if (!resultTask[status as TaskStatus]) {
@@ -26,18 +26,18 @@ function ListTask() {
         return groupedTask;
     }, tasksByStatus);
 
-
     return (
         <Accordion>
             {Object.entries(tasksByStatus).map(([status, tasks]) => (
                 <AccordionItem key={status} id={status}>
-                    <AccordionTrigger id={status}><div>{`${TASK_STATUS_MAP[status as TaskStatus]}`} (<span className='task-count'>{`${tasks.length}`}</span>)</div></AccordionTrigger>
-                    <AccordionContent id={status}>
+                    <AccordionTrigger id={status} isExpanded={searchQuery.length > 0 && tasks.length > 0}><div>{`${TASK_STATUS_MAP[status as TaskStatus]}`} (<span className='task-count'>{`${tasks.length}`}</span>)</div></AccordionTrigger>
+                    <AccordionContent id={status} isExpanded={searchQuery.length > 0 && tasks.length > 0}>
                         <ul className="task-list">
                             {tasks.map(task => (
                                 <TaskItem key={`task-${task.id}`} task={task} />
                             ))}
-                            {tasks.length === 0 && <li style={{ textAlign: "center"}}>Oops! No task exist in this category</li>}
+                            {tasks.length === 0 && searchQuery.length > 0&& <li style={{ textAlign: "center"}}>Oops! No task exist for this search</li>}
+                            {tasks.length === 0 && searchQuery.length === 0&& <li style={{ textAlign: "center"}}>Oops! No task exist in this category</li>}
                         </ul>
                     </AccordionContent>
                 </AccordionItem>

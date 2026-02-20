@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 type AccordionContextType = {
-  activeId: string | null;
+  activeIds: string[] | null;
   toggle: (id: string) => void;
 };
 

@@ -32,7 +32,7 @@
     max-height: 0px;
     transition: max-height 0.3s ease, opacity 0.3s ease;
 
-    &.show {
+    &.open {
         opacity: 1;
     }
 }

@@ -9,8 +9,7 @@ import { TASK_STATUS_MAP } from "../../constants/tasks";
 function TaskItem({ task }:{ task : Task }) {
     const { deleteTask } = useTaskContext();
     const [isDeleting, setIsDeleting] = useState(false);
-
-
+    
     function startDeleteAnimation() {
         setIsDeleting(true);
     }

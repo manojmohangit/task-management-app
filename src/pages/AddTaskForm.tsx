@@ -16,7 +16,7 @@ function AddTaskForm() {
             title,
             description
         });
-        navigate('/');
+        navigate('/', { state: { toastMessage: "Task added successfully!" } });
     }
 
     return (

@@ -39,9 +39,8 @@ function EditTaskForm() {
                 status: formData.get("status") as TaskStatus,
             };
             updateTask(updatedTask);
-            navigate("/", { replace: true });
-        }
-        
+            navigate("/", { state: { toastMessage: "Task updated successfully!" } });
+        }   
     }
 
     return task ? (
