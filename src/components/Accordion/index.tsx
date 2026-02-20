@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { AccordionContext, useAccordion } from './context';
 import './index.scss'
@@ -53,6 +53,15 @@ export const AccordionContent = ({ id, children }: { id: string; children: React
   const { activeId } = useAccordion();
   const isOpen = activeId === id;
   const contentRef = useRef<HTMLDivElement>(null);
+  const [maxHeight, setMaxHeight] = useState<string>("0px");
+
+  useLayoutEffect(() => {
+    if (isOpen && contentRef.current) {
+      setMaxHeight(`${contentRef.current.scrollHeight}px`);
+    } else {
+      setMaxHeight("0px");
+    }
+  }, [children, isOpen]);
 
   return (
     <div
@@ -62,7 +71,7 @@ export const AccordionContent = ({ id, children }: { id: string; children: React
         isOpen ? 'show' : ''
       }`}
       style={{
-        maxHeight: isOpen ? `${contentRef.current?.scrollHeight}px` : '0px'
+        maxHeight: isOpen ? maxHeight : "0px",
       }}
     >
       <div>
