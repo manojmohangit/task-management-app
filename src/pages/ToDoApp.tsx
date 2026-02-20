@@ -16,7 +16,7 @@ function ToDoApp() {
         if (location.state?.toastMessage && !toastProcessed.current) {
             addToast(location.state.toastMessage, 'success');
             toastProcessed.current = true;
-            window.history.replaceState({}, '', location.pathname);
+            navigate('/', { replace: true }); 
         }
     }, [location.state?.toastMessage])
 
