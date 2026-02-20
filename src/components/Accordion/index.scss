@@ -1,5 +1,6 @@
 .accordion-container {
     padding: 8px;
+    overflow: hidden;
 }
 
 .accordion-header {
@@ -27,10 +28,11 @@
 }
 
 .accordion-content {
-    height: 0;
-    transition: height 0.5s ease, opacity 0.3s ease;
+    opacity: 0;
+    max-height: 0px;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
 
     &.show {
-        height: auto;
+        opacity: 1;
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { AccordionContext, useAccordion } from './context';
 import './index.scss'
@@ -52,15 +52,22 @@ export const AccordionTrigger = ({ id, children }: { id: string; children: React
 export const AccordionContent = ({ id, children }: { id: string; children: ReactNode }) => {
   const { activeId } = useAccordion();
   const isOpen = activeId === id;
+  const contentRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
       role="region"
+      ref={contentRef}
       className={`accordion-content ${
         isOpen ? 'show' : ''
       }`}
+      style={{
+        maxHeight: isOpen ? `${contentRef.current?.scrollHeight}px` : '0px'
+      }}
     >
-      {children}
+      <div>
+        {children}
+      </div>
     </div>
   );
 };
