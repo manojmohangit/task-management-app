@@ -44,7 +44,7 @@ export default function useTaskStorage() {
 
 
     function addTask({id, title, description}: {id: number, title: string, description: string}) {
-        setTasks(prevTasks => [...prevTasks, {id, title, description, status: 'pending'}]);
+        setTasks(prevTasks => [...prevTasks, {id, title, description, status: 'PENDING'}]);
     }
 
     function updateTask(updatedTask: Task) {

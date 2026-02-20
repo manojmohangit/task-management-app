@@ -1,13 +1,12 @@
-export type TaskStatus = 'pending' | 'completed' | 'in-progress';
+import type { TaskStatus } from "../constants/tasks";
 
+export type { TaskStatus };
 export interface Task {
     id: number,
     title: string,
     description: string,
     status: TaskStatus
 }
-
-
 export interface TaskStorageType {
   tasks: Task[];                       
   filteredTasks: Task[];              

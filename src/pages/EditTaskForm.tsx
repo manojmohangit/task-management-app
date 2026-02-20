@@ -2,6 +2,9 @@ import React, { useEffect} from "react";
 import { NavLink, useNavigate, useParams } from "react-router";
 import { useTaskContext } from "../TaskStorageContext";
 import type { Task, TaskStatus } from "../types";
+import { Select } from "../components/Select";
+import { Option } from "../components/Select/Option";
+import { TASK_STATUS_OPTIONS } from '../constants/tasks';
 
 function EditTaskForm() {
     const navigate = useNavigate();
@@ -56,11 +59,11 @@ function EditTaskForm() {
                     </div>
 
                     <div className="input-group">
-                        <select name="status" defaultValue={task.status} className="form-control mb-4">
-                            <option value="pending"><i className="bi bi-circle-fill pending mr-1"></i>Pending</option>
-                            <option value="in-progress"><i className="bi bi-circle-fill in-progress mr-1"></i>In Progress</option>
-                            <option value="completed"><i className="bi bi-circle-fill completed mr-1"></i>Completed</option>
-                        </select>
+                        <Select name="status" defaultValue={task.status}>
+                            {TASK_STATUS_OPTIONS.map(options => (
+                                <Option key={options.value} value={options.value} label={<><i className={`bi bi-circle-fill mr-1 ${options.value.toLowerCase()}`}></i>{options.label}</>} />
+                            ))}
+                        </Select>
                     </div>
                     <div className="input-group" style={{ marginTop: '2rem'}}>
                         <NavLink to="/" className="btn btn-outline-primary">Cancel</NavLink>

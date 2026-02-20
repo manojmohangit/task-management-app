@@ -1,9 +1,10 @@
-import type { Task } from "../../types/index";
+import type { Task, TaskStatus } from "../../types/index";
 import { NavLink } from "react-router";
 import './index.scss';
 import { useTaskContext } from "../../TaskStorageContext";
 import { formatDate } from "../../utils/formatDate";
 import { useState } from "react";
+import { TASK_STATUS_MAP } from "../../constants/tasks";
 
 function TaskItem({ task }:{ task : Task }) {
     const { deleteTask } = useTaskContext();
@@ -29,9 +30,8 @@ function TaskItem({ task }:{ task : Task }) {
                 <div className="card-header">
                     <span className="text-primary title">{task.title}</span>
                     <span className="status">
-                        {task.status === 'pending' && <><i className="bi bi-circle-fill mr-1 pending"></i>Pending</>}
-                        {task.status === 'completed' && <><i className="bi bi-circle-fill mr-1 completed"></i>Completed</>}
-                        {task.status === 'in-progress' && <><i className="bi bi-circle-fill mr-1 in-progress"></i>In Progress</>}    
+                        <i className={`bi bi-circle-fill mr-1 ${task.status.toLowerCase()}`}></i>
+                        {TASK_STATUS_MAP[task.status as TaskStatus]}
                     </span>
                 </div>
                 <p>{task.description}</p>

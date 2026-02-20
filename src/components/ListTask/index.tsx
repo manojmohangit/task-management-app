@@ -3,12 +3,12 @@ import TaskItem from "../TaskItem";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../Accordion";
 import './index.scss';
 import { useTaskContext } from "../../TaskStorageContext";
+import { TASK_STATUS_MAP } from "../../constants/tasks";
 
 function ListTask() {
-    const taskStatuses = {'in-progress': 'In Progress', 'pending': 'Pending', 'completed': 'Completed'} as Record<TaskStatus, string>;
     const { filteredTasks } = useTaskContext();
         
-    let tasksByStatus = Object.keys(taskStatuses).reduce((resultTask, status) => {
+    let tasksByStatus = Object.keys(TASK_STATUS_MAP).reduce((resultTask, status) => {
         if (!resultTask[status as TaskStatus]) {
             resultTask[status as TaskStatus] = [];
         }
@@ -31,7 +31,7 @@ function ListTask() {
         <Accordion>
             {Object.entries(tasksByStatus).map(([status, tasks]) => (
                 <AccordionItem key={status} id={status}>
-                    <AccordionTrigger id={status}><div>{`${taskStatuses[status]}`} (<span className='task-count'>{`${tasks.length}`}</span>)</div></AccordionTrigger>
+                    <AccordionTrigger id={status}><div>{`${TASK_STATUS_MAP[status as TaskStatus]}`} (<span className='task-count'>{`${tasks.length}`}</span>)</div></AccordionTrigger>
                     <AccordionContent id={status}>
                         <ul className="task-list">
                             {tasks.map(task => (
