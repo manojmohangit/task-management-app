@@ -7,24 +7,17 @@ function ToDoApp() {
     
     return (
         <div className="container">
-            <header className="uppercase">To-Do App</header>
+            <div className="" style={{ height: "100%", overflowY: "auto", position: "relative"}}>
+                <header className="uppercase">To-Do App</header>
+                <SearchBar />
+                <ListTask />
+            </div>
+
             <button 
                 className='btn btn-primary' 
                 id='add-task-btn' 
                 onClick={() => navigate('/add')} 
-                style={{ 
-                    position: "absolute",
-                    fontSize: "24px",
-                    bottom: "20px",
-                    right: "20px",
-                    width: "50px",
-                    height: "50px",
-                    borderRadius: "50%",
-                    padding: "0px"
-                }}
             >+</button>
-            <SearchBar />
-            <ListTask />
         </div>
     );
 }

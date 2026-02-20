@@ -8,7 +8,7 @@ interface AccordionProps {
   allowMultiple?: boolean;
 }
 
-export const Accordion = ({ children, allowMultiple = false }: AccordionProps) => {
+export const Accordion = ({ children }: AccordionProps) => {
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const toggle = (id: string) => {
@@ -24,7 +24,12 @@ export const Accordion = ({ children, allowMultiple = false }: AccordionProps) =
   );
 };
 
-export const AccordionItem = ({ id, children }: { id: string; children: ReactNode }) => {
+interface AccordionItemProps {
+  id: string;
+  children: ReactNode;
+}
+
+export const AccordionItem = ({ children }: AccordionItemProps) => {
   return <div className="accordian-item">{children}</div>;
 };
 
@@ -39,7 +44,7 @@ export const AccordionTrigger = ({ id, children }: { id: string; children: React
       className={`accordion-header ${isOpen ? 'show' : ''}`}
     >
       {children}
-      <i className={`bi bi-caret-down-fill accordian-trigger-btn`}></i>
+      <i className={`bi bi-chevron-down accordian-trigger-btn`}></i>
     </div>
   );
 };
