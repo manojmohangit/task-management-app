@@ -15,7 +15,6 @@ export interface ToastContextType {
     removeToast: (id: string) => void;
 }
 
-
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 export const ToastProvider= ({ children }: { children: ReactNode }) => {
@@ -34,13 +33,14 @@ export const ToastProvider= ({ children }: { children: ReactNode }) => {
         <ToastContext.Provider value={{ addToast, removeToast }}>
             {children}
             <div className="toast-container">
-            {toasts.map((toast) => (
-                <Toast 
-                key={toast.id} 
-                message={toast.message}
-                onClose={() => removeToast(toast.id)} 
-                />
-            ))}
+                {toasts.map((toast) => (
+                    <Toast 
+                        key={toast.id} 
+                        message={toast.message}
+                        type={toast.type}
+                        onClose={() => removeToast(toast.id)} 
+                    />
+                ))}
             </div>
         </ToastContext.Provider>
     );

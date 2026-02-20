@@ -18,7 +18,7 @@
     color: #034EA2;
 }
 
-.show .accordian-trigger-btn {
+.open .accordian-trigger-btn {
     transform: rotate(180deg);
 }
 

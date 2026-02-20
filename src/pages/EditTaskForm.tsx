@@ -1,8 +1,8 @@
 import { useEffect, useState} from "react";
 import { NavLink, useNavigate, useParams } from "react-router";
-import { useTaskContext } from "../TaskStorageContext";
-import type { Task, TaskStatus } from "../types";
 import type { SubmitEvent } from "react";
+import type { Task, TaskStatus } from "../types";
+import { useTaskContext } from "../TaskStorageContext";
 import { Select } from "../components/Select";
 import { Option } from "../components/Select/Option";
 import { TASK_STATUS_OPTIONS } from '../constants/tasks';
@@ -13,22 +13,22 @@ function EditTaskForm() {
     const { tasks, updateTask } = useTaskContext();
     const [task, setTask] = useState<Task | null>(null);
     
-
-    useEffect(() => {
-        
+    useEffect(() => {    
         if(!id) {
-            navigate('/', {replace: true});
+            navigate('/', { replace: true });
         } else {
-            if(task == null)
+            if(task == null) {
                 tasks.forEach(t => {
                     if(id && t.id === parseInt(id)) {
                         setTask(t);
                     }
                 });
+            }
+                
         }
     }, []);
 
-    function formSubmitHandler(e: SubmitEvent<HTMLFormElement>) {
+    function editFormSubmitHandler(e: SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         if(task && task.id) {
@@ -50,7 +50,7 @@ function EditTaskForm() {
                 Edit Task
             </header>
             <div className="content">
-                <form action="post" onSubmit={formSubmitHandler}>
+                <form action="post" onSubmit={editFormSubmitHandler}>
                     <div className="input-group">
                         <input type="text" placeholder="Enter the title" name="title" className="" required defaultValue={task.title}/>
                     </div>
@@ -61,7 +61,11 @@ function EditTaskForm() {
                     <div className="input-group">
                         <Select name="status" defaultValue={task.status}>
                             {TASK_STATUS_OPTIONS.map(options => (
-                                <Option key={options.value} value={options.value} label={<><i className={`bi bi-circle-fill mr-1 ${options.value.toLowerCase()}`}></i>{options.label}</>} />
+                                <Option 
+                                    key={options.value} 
+                                    value={options.value} 
+                                    label={<><i className={`bi bi-circle-fill mr-1 ${options.value.toLowerCase()}`}></i>{options.label}</>} 
+                                />
                             ))}
                         </Select>
                     </div>

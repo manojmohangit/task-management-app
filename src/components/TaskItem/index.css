@@ -1,0 +1,121 @@
+.task-card {
+    display: flex;
+    vertical-align: top;
+    align-items: flex-start;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.task-card.deleting {
+    animation: fadeOut .3s forwards;
+}
+
+.task-card .card-icon {
+    color: var(--primary-color, #034EA2);
+    font-size: 12px;
+    height: 24px;
+    width: 24px;
+    padding: 0.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    position: relative;
+    text-align: center;
+    border: 1px solid var(--primary-color, #034EA2);
+    border-radius: 50%;
+}
+
+
+
+.task-card .card-content:hover .card-footer .task-actions {
+    opacity: 1;
+}
+  
+.task-card .card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.task-card:hover {
+    background-color: #F7F7F7;
+    border-color: transparent;
+}
+
+.task-card .card-content .card-header {
+    display: flex;
+    justify-content: space-between;
+    vertical-align: top;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.task-card .card-content .card-header .title {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.task-card .card-content .card-header .status {
+    font-size: 12px;
+}
+
+.task-card .card-content p {
+    font-weight: 400;
+    font-size: 12px;
+    color: #231F20;
+    margin: 6px 0px;
+}
+
+.task-card .card-content .card-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-card .card-content .card-footer span {
+    font-size: 10px;
+    color: #767676;
+}
+
+.task-card .card-content .card-footer .task-actions {
+    align-self: flex-end;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.task-card .card-content .card-footer button {
+    border: 0px;
+    background: transparent;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.status .bi-circle-fill {
+    font-size: 8px;
+    vertical-align: middle;
+    margin-right: 0.25rem;
+}
+
+.pending .status .bi-circle-fill {
+    color: #D0D0D0;
+}
+
+.completed .status .bi-circle-fill {
+    color: #368A04;
+}
+
+.in-progress .status .bi-circle-fill {
+    color: #FFB03C;
+}
+
+.completed .bi-clock:before {
+    content: "\F270";
+}
+
+.in-progress .bi-clock:before {
+    content: "\F41F";
+}

@@ -1,0 +1,35 @@
+.search-bar-container {
+    width: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.search-bar-container input {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem 2rem;
+    font-size: 12px;
+    transition: all 0.2s ease-in-out;
+}
+
+.search-bar-container .bi-search {
+    position: absolute;
+    left: 1rem;
+    color: var(--primary-color, #034EA2);
+    font-size: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.search-bar-container .bi-x {
+    position: absolute;
+    right: 1rem;
+    opacity: 0;
+    color: var(--primary-color, #034EA2);
+    font-size: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+}

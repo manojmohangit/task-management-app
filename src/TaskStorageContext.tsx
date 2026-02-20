@@ -8,19 +8,19 @@ const TaskStorageContext = createContext<TaskStorageType | null>(null);
 
 export const TaskContextProvider = ({ children }: { children: ReactNode }) => {
   const taskStorage = useTaskStorage();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchTaskQuery, setsearchTaskQuery] = useState("");
 
   
 
   const filteredTasks = useMemo(() => {
     return taskStorage.tasks.filter(task =>
-      task.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      task.title.toLowerCase().includes(searchQuery.toLowerCase())
+      task.description.toLowerCase().includes(searchTaskQuery.toLowerCase()) ||
+      task.title.toLowerCase().includes(searchTaskQuery.toLowerCase())
     );
-  }, [taskStorage.tasks, searchQuery]);
+  }, [taskStorage.tasks, searchTaskQuery]);
   
   return (
-    <TaskStorageContext.Provider value={{ ...taskStorage, searchQuery, setSearchQuery, filteredTasks }}>
+    <TaskStorageContext.Provider value={{ ...taskStorage, searchTaskQuery, setsearchTaskQuery, filteredTasks }}>
       {children}
     </TaskStorageContext.Provider>
   );

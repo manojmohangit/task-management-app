@@ -1,6 +1,6 @@
 import type { Task, TaskStatus } from "../../types/index";
 import { NavLink } from "react-router";
-import './index.scss';
+import './index.css';
 import { useTaskContext } from "../../TaskStorageContext";
 import { formatDate } from "../../utils/formatDate";
 import { useState } from "react";
@@ -9,14 +9,14 @@ import { TASK_STATUS_MAP } from "../../constants/tasks";
 function TaskItem({ task }:{ task : Task }) {
     const { deleteTask } = useTaskContext();
     const [isDeleting, setIsDeleting] = useState(false);
-    
+
     function startDeleteAnimation() {
         setIsDeleting(true);
     }
 
     return (
         <li 
-            className={`task-card ${task.status} ${isDeleting ? 'deleting' : ''}`} 
+            className={`task-card ${task.status.toLowerCase()} ${isDeleting ? 'deleting' : ''}`} 
             onAnimationEnd={
                 () => {
                     if(isDeleting) 

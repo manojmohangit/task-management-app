@@ -1,7 +1,7 @@
-import { useLayoutEffect, useCallback, useRef, useState, useEffect } from 'react';
+import { useLayoutEffect, useCallback, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { AccordionContext, useAccordion } from './context';
-import './index.scss'
+import './index.css'
 
 interface AccordionProps {
   children: ReactNode;
@@ -35,15 +35,15 @@ export const AccordionItem = ({ children }: AccordionItemProps) => {
   return <div className="accordian-item">{children}</div>;
 };
 
-export const AccordionTrigger = ({ id, isExpanded, children }: { id: string; isExpanded?: boolean; children: ReactNode }) => {
+export const AccordionTrigger = ({ id, children }: { id: string; isExpanded?: boolean; children: ReactNode }) => {
   const { activeIds, toggle } = useAccordion();
-  const isOpen = isExpanded || activeIds?.includes(id);
+  const isOpen = activeIds?.includes(id);
 
   return (
     <div
       onClick={() => { toggle(id);}}
       aria-expanded={isOpen}
-      className={`accordion-header ${isOpen ? 'show' : ''}`}
+      className={`accordion-header ${isOpen ? 'open' : ''}`}
     >
       {children}
       <i className={`bi bi-chevron-down accordian-trigger-btn`}></i>
@@ -53,9 +53,9 @@ export const AccordionTrigger = ({ id, isExpanded, children }: { id: string; isE
 
 export const AccordionContent = ({ id, children }: { id: string; isExpanded?: boolean; children: ReactNode }) => {
   const { activeIds } = useAccordion();
+  const isOpen = activeIds?.includes(id);
   const contentRef = useRef<HTMLDivElement>(null);
   const [maxHeight, setMaxHeight] = useState<string>("0px");
-  const isOpen = activeIds?.includes(id);
 
   useLayoutEffect(() => {
     if (isOpen && contentRef.current) {

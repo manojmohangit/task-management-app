@@ -2,12 +2,14 @@ import ListTask from "../components/ListTask";
 import SearchBar from "../components/SearchBar";
 import { useEffect, useRef } from "react";
 import { useNavigate, useLocation  } from "react-router";
+import { useTaskContext } from "../TaskStorageContext";
 import { useToast } from "../components/Toast/context";
 
 function ToDoApp() {
     const navigate = useNavigate();
     const location = useLocation();
     const { addToast } = useToast();
+    const { localStorageError, setLocalStorageError } = useTaskContext();
     const toastProcessed = useRef(false);
 
     useEffect(() => {
@@ -21,8 +23,14 @@ function ToDoApp() {
         }
     }, [location.state?.toastMessage])
 
+    useEffect(() => {
+        if(localStorageError != null && !toastProcessed.current) {
+            addToast(localStorageError, 'error');
+            toastProcessed.current = true;
+            setLocalStorageError(null);
+        }
+    }, [localStorageError])
 
-    
     return (
         <div className="container">
             <div style={{ height: "100%", overflowY: "auto", position: "relative"}}>

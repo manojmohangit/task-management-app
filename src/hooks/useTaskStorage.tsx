@@ -60,6 +60,7 @@ export default function useTaskStorage() {
         addTask,
         updateTask,
         deleteTask,
-        localStorageError
+        localStorageError,
+        setLocalStorageError
     };
 }  

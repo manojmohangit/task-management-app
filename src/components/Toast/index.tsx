@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { ToastType } from "./context";
-import "./index.scss"
+import "./index.css"
 
 interface ToastProps {
     message: string;
@@ -14,13 +14,14 @@ export const Toast = ({message, duration = 2000, type="success", onClose = (): v
         const timer = setTimeout(() => {
             onClose?.();
         }, duration);
-
+        
         return () => clearTimeout(timer);
     }, [duration]);
 
     return (
-        <div className={`toast slide-in ${type}`} >
-            <p>{message}</p>
+        <div className={`toast slide-up ${type}`} >
+            {type === "success" ? <i className={`bi bi-check-circle-fill mr-1 ${type}`}></i> : <i className={`bi bi-x-circle-fill toast-icon mr-1 ${type}`}></i>}
+            {message}
         </div>
     );
 }
