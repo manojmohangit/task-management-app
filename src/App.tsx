@@ -13,7 +13,7 @@ function App() {
     <>
       <ToastProvider>
         <TaskContextProvider>
-          <BrowserRouter>
+          <BrowserRouter basename='/task-management-app/'>
             <Routes>
               <Route index path="/" element={<ToDoApp />} />
               <Route path="/add" element={<AddTaskForm />} />
