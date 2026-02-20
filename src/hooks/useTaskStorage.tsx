@@ -3,8 +3,9 @@ import type { Task } from "../types";
 
 export default function useTaskStorage() {
     const [localStorageError, setLocalStorageError] = useState<string | null>(null);
+    const LOCAL_STORAGE_KEY = 'task-app-store';
 
-    // To check if any issue with localStorage, like in private mode or if it's disabled
+    
     const isLocalStorageAvailable = () => {
         try {
             const testKey = "__local_storage_test__";
@@ -19,7 +20,7 @@ export default function useTaskStorage() {
     const [tasks, setTasks] = useState<Array<Task>>(() => {
         try {
             if(isLocalStorageAvailable()) {
-                const savedTasks = localStorage.getItem('task-app-store');
+                const savedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
                 if (savedTasks) {
                     return JSON.parse(savedTasks);
                 } else {
@@ -35,7 +36,7 @@ export default function useTaskStorage() {
     useEffect(() => {
         try {
             if(isLocalStorageAvailable()) {
-                localStorage.setItem('task-app-store', JSON.stringify(tasks));
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
             }
         } catch (error) {
             setLocalStorageError("Failed to save tasks to local storage");
