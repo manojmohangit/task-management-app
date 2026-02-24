@@ -39,7 +39,7 @@ function ToDoApp() {
             <button 
                 className='btn btn-primary' 
                 id='add-task-btn' 
-                onClick={() => navigate('/add')} 
+                onClick={() => navigate('/add', { viewTransition: true })} 
             >+</button>
         </div>  
     );

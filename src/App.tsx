@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 import ToDoApp from './pages/ToDoApp';
 import AddTaskForm from './pages/AddTaskForm';
 import EditTaskForm from './pages/EditTaskForm';
@@ -7,20 +7,35 @@ import { TaskContextProvider } from './TaskStorageContext';
 import { ToastProvider } from './components/Toast/context';
 import './App.css';
 
+
+let router = createBrowserRouter([
+  {
+    path: "/",
+    element: <ToDoApp />
+  },
+  {
+    path: "/add",
+    element: <AddTaskForm />
+  },
+  {
+    path: "/edit/:id",
+    element: <EditTaskForm />
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />
+  }
+], {
+  basename: '/task-management-app/'
+});
+
 function App() {
 
   return (
     <>
       <ToastProvider>
         <TaskContextProvider>
-          <BrowserRouter basename='/task-management-app/'>
-            <Routes>
-              <Route index path="/" element={<ToDoApp />} />
-              <Route path="/add" element={<AddTaskForm />} />
-              <Route path="/edit/:id" element={<EditTaskForm />} />
-              <Route path="*" element={<NotFoundPage/>} />
-            </Routes>
-          </BrowserRouter>
+          <RouterProvider router={router} />
         </TaskContextProvider>
       </ToastProvider>
     </>

@@ -19,7 +19,7 @@ export const Accordion = ({ children }: AccordionProps) => {
 
   return (
     <AccordionContext.Provider value={{ activeIds, toggle }}>
-      <div className="accordion-container">
+      <div className="accordion-container" style={{ viewTransitionName: "list" }}>
         {children}
       </div>
     </AccordionContext.Provider>

@@ -15,7 +15,7 @@ function EditTaskForm() {
     
     useEffect(() => {    
         if(!id) {
-            navigate('/', { replace: true });
+            navigate('/', { replace: true, viewTransition: true });
         } else {
             if(task == null) {
                 tasks.forEach(t => {
@@ -23,8 +23,7 @@ function EditTaskForm() {
                         setTask(t);
                     }
                 });
-            }
-                
+            }     
         }
     }, []);
 
@@ -39,23 +38,23 @@ function EditTaskForm() {
                 status: formData.get("status") as TaskStatus,
             };
             updateTask(updatedTask);
-            navigate("/", { state: { toastMessage: "Task updated successfully!" } });
+            navigate("/", { state: { toastMessage: "Task updated successfully!" }, viewTransition: true });
         }   
     }
 
     return task ? (
         <div className="container">
             <header>
-                <NavLink to="/"><i className="mr-2 bi bi-arrow-left text-white"></i></NavLink>
+                <NavLink to="/" viewTransition><i className="mr-2 bi bi-arrow-left text-white"></i></NavLink>
                 Edit Task
             </header>
-            <div className="content">
+            <div className="content" style={{ viewTransitionName: "list" }}>
                 <form action="post" onSubmit={editFormSubmitHandler}>
                     <div className="input-group">
-                        <input type="text" placeholder="Enter the title" name="title" className="" required defaultValue={task.title}/>
+                        <input type="text" placeholder="Enter the title" name="title" required defaultValue={task.title}/>
                     </div>
                     <div className="input-group">
-                        <textarea placeholder="Enter the description" name="description" className="form-control mb-4" rows={5} required defaultValue={task.description}></textarea>
+                        <textarea placeholder="Enter the description" name="description" rows={5} required defaultValue={task.description}></textarea>
                     </div>
 
                     <div className="input-group">
@@ -70,7 +69,7 @@ function EditTaskForm() {
                         </Select>
                     </div>
                     <div className="input-group" style={{ marginTop: '2rem'}}>
-                        <NavLink to="/" className="btn btn-outline-primary">Cancel</NavLink>
+                        <NavLink to="/" className="btn btn-outline-primary" viewTransition>Cancel</NavLink>
                         <button type="submit" className="btn btn-primary">Update</button>
                     </div>
                 </form>
