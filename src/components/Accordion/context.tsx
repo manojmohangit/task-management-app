@@ -1,8 +1,10 @@
 import { createContext, useContext } from 'react';
 
 type AccordionContextType = {
-  activeIds: string[] | null;
-  toggle: (id: string) => void;
+  activeIds: string[];
+  toggle: (id: string, active?: boolean) => void;
+  interactedIds: string[];
+  setInteraction: (id: string) => void;
 };
 
 export const AccordionContext = createContext<AccordionContextType | null>(null);

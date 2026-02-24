@@ -1,3 +1,4 @@
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import type { Task, TaskStatus } from "../../types";
 import TaskItem from "../TaskItem";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../Accordion";
@@ -7,31 +8,45 @@ import { TASK_STATUS_MAP } from "../../constants/tasks";
 
 function ListTask() {
     const { filteredTasks, searchTaskQuery } = useTaskContext();
-        
-    let tasksByStatus = Object.keys(TASK_STATUS_MAP).reduce((resultTask, status) => {
-        if (!resultTask[status as TaskStatus]) {
-            resultTask[status as TaskStatus] = [];
-        }
-        return resultTask;
-    }, {} as Partial<Record<TaskStatus, Task[]>>); 
+    const [activeIds, setActiveIds] = useState<string[]>([]);
     
-    tasksByStatus = filteredTasks.reduce((groupedTask, task) => {
-        const { status } = task;
+    const tasksByStatus = useMemo(() => {
+        const grouped = Object.keys(TASK_STATUS_MAP).reduce((resultTask, status) => {
+            resultTask[status as TaskStatus] = [];
+            return resultTask;
+        }, {} as Record<TaskStatus, Task[]>);
         
-        if (!groupedTask[status]) {
-            groupedTask[status] = [];
+        return filteredTasks.reduce((groupedTask, task) => {
+            groupedTask[task.status].push(task);
+            return groupedTask;
+        }, grouped);
+    }, [filteredTasks]);
+
+    useEffect(() => {
+        if(searchTaskQuery.length > 0) {
+            const ids = Object.entries(tasksByStatus)
+                .filter(([, tasks]) => tasks.length > 0)
+                .map(([status]) => status);
+            setActiveIds(ids);
+        } else {
+            setActiveIds([]);
         }
-        
-        groupedTask[status].push(task);
-        return groupedTask;
-    }, tasksByStatus);
+    }, [searchTaskQuery, tasksByStatus])
+
+    const handleAccordionChange = useCallback((ids: string[]) => {
+        setActiveIds(ids);
+    }, []);
 
     return (
-        <Accordion>
+        <Accordion allowMultiple onChange={handleAccordionChange} activeIds={activeIds}>
             {Object.entries(tasksByStatus).map(([status, tasks]) => (
-                <AccordionItem key={status} id={status}>
-                    <AccordionTrigger id={status} isExpanded={searchTaskQuery.length > 0 && tasks.length > 0}><div>{`${TASK_STATUS_MAP[status as TaskStatus]}`} (<span className='task-count'>{`${tasks.length}`}</span>)</div></AccordionTrigger>
-                    <AccordionContent id={status} isExpanded={searchTaskQuery.length > 0 && tasks.length > 0}>
+                <AccordionItem 
+                    key={`${status}-${tasks.length}`} 
+                    id={status} 
+                    isExpanded={searchTaskQuery.length > 0 ? activeIds.includes(status) : undefined}
+                >
+                    <AccordionTrigger id={status}><div>{`${TASK_STATUS_MAP[status as TaskStatus]}`} (<span className='task-count'>{`${tasks.length}`}</span>)</div></AccordionTrigger>
+                    <AccordionContent id={status}>
                         <ul className="task-list">
                             {tasks.map(task => (
                                 <TaskItem key={`task-${task.id}`} task={task} />
